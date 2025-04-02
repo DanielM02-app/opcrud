@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
 
-export default function BookForm({ onSubmit, initialData }) {
+export default function BookForm({ onSubmit, editingBook }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
 
   useEffect(() => {
-    if (initialData) {
-      setTitle(initialData.title);
-      setAuthor(initialData.author);
+    if (editingBook) {
+      setTitle(editingBook.title);
+      setAuthor(editingBook.author);
     }
-  }, [initialData]);
+  }, [editingBook]);
 
   return (
     <form
+      className="book-form"
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit({ title, author });
@@ -34,7 +35,9 @@ export default function BookForm({ onSubmit, initialData }) {
         placeholder="Autor"
         required
       />
-      <button type="submit">{initialData ? "Actualizar" : "Agregar"} Libro</button>
+      <button type="submit" className="submit-btn">
+        {editingBook ? "Actualizar Libro" : "Agregar Libro"}
+      </button>
     </form>
   );
 }
